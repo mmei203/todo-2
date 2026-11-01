@@ -12,7 +12,7 @@ export default function Home() {
 					enim?
 				</p>
 				<div className="mt-10">
-					<Link href="/register">
+					<Link href="/sign-up">
 						<Button className=" text-2xl p-7 bg-transparent border-2 border-white-200 inset-shadow-sm inset-shadow-white/90 rounded-3xl hover:scale-[0.98] hover:bg-white hover:text-neutral-900 hover:inset-shadow-sm hover:inset-shadow-neutral-700 hover:border-none">
 							Get Started
 						</Button>
