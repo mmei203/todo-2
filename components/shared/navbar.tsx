@@ -30,29 +30,32 @@ export default function Navbar() {
 				{session?.user ? (
 					<>
 						<DropdownMenu>
-							<DropdownMenuTrigger>
-								<Button>
-									<Avatar>
-										<AvatarFallback>
-											{session.user.name[0].toUpperCase()}
-										</AvatarFallback>
-									</Avatar>
-								</Button>
+							<DropdownMenuTrigger className="focus-within:scale-95">
+								<Avatar>
+									<AvatarFallback>
+										{session.user.name[0].toUpperCase()}
+									</AvatarFallback>
+								</Avatar>
 							</DropdownMenuTrigger>
-							<DropdownMenuContent align="end" className='min-w-3xs'>
+							<DropdownMenuContent align="end" className="min-w-3xs">
 								<DropdownMenuGroup>
 									<DropdownMenuLabel>
 										<div>
-											<p className="text-neutral-900">Welcome back, {session.user.name}</p>
+											<p className="text-neutral-900">
+												Welcome back, {session.user.name}
+											</p>
 											<p>{session.user.email}</p>
 										</div>
-										<Button variant='destructive' onClick={async () => {
-											await authClient.signOut({
-												fetchOptions: {
-													onSuccess: () => router.push("/")
-												}
-											})
-										}}>
+										<Button
+											variant="destructive"
+											onClick={async () => {
+												await authClient.signOut({
+													fetchOptions: {
+														onSuccess: () => router.push("/"),
+													},
+												});
+											}}
+										>
 											Sign Out
 										</Button>
 									</DropdownMenuLabel>
