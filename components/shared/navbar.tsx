@@ -38,27 +38,27 @@ export default function Navbar() {
 								</Avatar>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent align="end" className="min-w-3xs">
-								<DropdownMenuGroup>
+								<DropdownMenuGroup className="space-y-5 px-4 py-2">
 									<DropdownMenuLabel>
 										<div>
-											<p className="text-neutral-900">
+											<p className="text-neutral-900 text-lg">
 												Welcome back, {session.user.name}
 											</p>
 											<p>{session.user.email}</p>
 										</div>
-										<Button
-											variant="destructive"
-											onClick={async () => {
-												await authClient.signOut({
-													fetchOptions: {
-														onSuccess: () => router.push("/"),
-													},
-												});
-											}}
-										>
-											Sign Out
-										</Button>
 									</DropdownMenuLabel>
+									<Button
+										variant="destructive"
+										onClick={async () => {
+											await authClient.signOut({
+												fetchOptions: {
+													onSuccess: () => router.push("/"),
+												},
+											});
+										}}
+									>
+										Sign Out
+									</Button>
 								</DropdownMenuGroup>
 							</DropdownMenuContent>
 						</DropdownMenu>
