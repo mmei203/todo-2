@@ -54,8 +54,8 @@ export default function SignIn() {
       <main className=" p-23 mx-auto text-neutral-900">
          <Card className="p-7 items-center rounded-4xl bg-white text-neutral-900 inset-shadow-sm inset-shadow-neutral-950">
             <CardHeader className="min-w-xs">
-               <CardTitle className="text-2xl font-bold">Sign Up</CardTitle>
-               <CardDescription>Create your account</CardDescription>
+               <CardTitle className="text-2xl font-bold">Login</CardTitle>
+               <CardDescription>Login to your account</CardDescription>
             </CardHeader>
             <CardContent>
                <form className="space-y-5" onSubmit={handleSubmit}>
