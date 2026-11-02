@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
 import React, { useState } from "react";
 
 export default function SignUp() {
