@@ -8,6 +8,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { signUp } from "@/lib/auth-client";
+import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -15,6 +16,7 @@ export default function SignUp() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false)
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
@@ -95,20 +97,31 @@ export default function SignUp() {
 							<label htmlFor="password" className="font-semibold">
 								Password
 							</label>
-							<input
-								type="password"
-								name="password"
-								id="password"
-								className="outline-2 py-2 px-4 rounded-xl"
-								placeholder="●●●●●●●●●"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								required
-								minLength={6}
-							/>
+							<div className="flex outline-2 py-2 px-4 rounded-xl">
+								<input
+									type={showPassword ? "text" : "password"}
+									name="password"
+									id="password"
+									className=""
+									placeholder="●●●●●●●●●"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									required
+									minLength={6}
+								/>
+								<button
+									className=""
+									onClick={() => setShowPassword(!showPassword)}>
+									{showPassword ? <EyeOff /> : <Eye />}
+								</button>
+							</div>
 						</div>
 						{error && <p className="text-destructive">{error}</p>}
-						<Button className="px-10 py-5 text-lg w-full" disabled={loading} type="submit">
+						<Button
+							className="px-10 py-5 text-lg w-full"
+							disabled={loading}
+							type="submit"
+						>
 							{loading ? "Creating Account..." : "Create Account"}
 						</Button>
 					</form>
