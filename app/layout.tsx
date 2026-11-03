@@ -21,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={cn("h-full", "antialiased", poppins.variable, "font-poppins")}
     >
-      <body className="min-h-full flex flex-col bg-neutral-900">
+      <body className="min-h-full flex flex-col bg-neutral-900 text-white">
         <Navbar/>
         {children}
       </body>
