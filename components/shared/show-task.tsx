@@ -1,6 +1,5 @@
 import { Edit, Trash } from "lucide-react";
 import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
 
 export default function ShowTasks() {
 	const tasks = [
