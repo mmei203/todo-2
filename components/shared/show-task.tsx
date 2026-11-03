@@ -1,24 +1,17 @@
 import { Edit, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 
-export default function ShowTasks() {
-	const tasks = [
-		{
-			id: 1,
-			taskname: "task 1",
-			description: "bleh bleh bleh",
-		},
-		{
-			id: 2,
-			taskname: "task 2",
-			description: "bleh bleh bleh",
-		},
-		{
-			id: 3,
-			taskname: "task 3",
-			description: "bleh bleh bleh",
-		},
-	];
+interface Task {
+	id: string,
+	taskName?: string
+}
+
+interface TaskListProps {
+	tasks: Task[]
+	onDelete: (id:string) => void
+}
+
+export default function ShowTasks({tasks, onDelete}: TaskListProps) {
 	return (
 		<div className="space-y-3">
 			{tasks.map((task) => (
@@ -30,13 +23,13 @@ export default function ShowTasks() {
 							id=""
 							className="size-7 rounded-xl"
 						/>
-						<p>{task.taskname}</p>
+						<p>{task.taskName}</p>
 					</div>
 					<div className="space-x-4">
 						<Button size="icon-lg" className="bg-green-900">
 							<Edit size={40} />
 						</Button>
-						<Button size="icon-lg" className="bg-destructive">
+						<Button size="icon-lg" className="bg-destructive" onClick={() => onDelete(task.id)}>
 							<Trash />
 						</Button>
 					</div>

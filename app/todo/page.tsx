@@ -20,7 +20,11 @@ export default function ToDoList() {
 	}, [])
 
 	const handleTaskCreated = (newTask: Task) => {
-		setTasks([newTask, ...tasks])
+		setTasks((prevTasks) => [newTask, ...prevTasks])
+	}
+
+	const handleTaskDeleted = (id: string) => {
+		setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
 	}
 
    return (
@@ -33,7 +37,7 @@ export default function ToDoList() {
 				{/* Task Lists */}
 				<section className="border-t-5 border-neutral-700 py-5 space-y-5">
             <h1 className="text-3xl font-bold">Tasks</h1>
-            <ShowTasks/>
+            <ShowTasks tasks={tasks} onDelete={handleTaskDeleted}/>
 				</section>
 			</main>
 		);
