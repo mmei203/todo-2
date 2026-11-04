@@ -1,17 +1,33 @@
+"use client";
 import { Edit, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface Task {
-	id: string,
-	taskName?: string
+	id: string;
+	taskName?: string;
 }
 
 interface TaskListProps {
-	tasks: Task[]
-	onDelete: (id:string) => void
+	tasks: Task[];
+	onDelete: (id: string) => void;
 }
 
-export default function ShowTasks({tasks, onDelete}: TaskListProps) {
+export default function ShowTasks({ tasks, onDelete }: TaskListProps) {
+	const handleDeleteClick = async (id: string) => {
+		try {
+			const res = await fetch(`/api/task/${id}`, { method: "DELETE" });
+			const json = await res.json();
+
+			if (res.ok) {
+				onDelete(id);
+			} else {
+				alert(json.message);
+			}
+		} catch (error) {
+			console.error("error: ", error);
+		}
+	};
+
 	return (
 		<div className="space-y-3">
 			{tasks.map((task) => (
@@ -29,7 +45,11 @@ export default function ShowTasks({tasks, onDelete}: TaskListProps) {
 						<Button size="icon-lg" className="bg-green-900">
 							<Edit size={40} />
 						</Button>
-						<Button size="icon-lg" className="bg-destructive" onClick={() => onDelete(task.id)}>
+						<Button
+							size="icon-lg"
+							className="bg-destructive"
+							onClick={() => handleDeleteClick(task.id)}
+						>
 							<Trash />
 						</Button>
 					</div>
