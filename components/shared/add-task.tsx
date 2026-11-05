@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 
 interface Task {
-	id: string,
-	taskName: string
+	id: string;
+	taskName: string;
+	completed: boolean;
 }
 interface AddTaskFormProps {
 	onTaskCreated: (newTask: Task) => void;
@@ -29,13 +30,13 @@ export default function AddTask({ onTaskCreated }: AddTaskFormProps) {
 
 			const json = await res.json();
 			if (json.success) {
-				onTaskCreated(json.data)
+				onTaskCreated(json.data);
 				setNewTask("");
 			}
 		} catch (error) {
-			console.error("Failed to add Task", error)
+			console.error("Failed to add Task", error);
 		} finally {
-			setLoading(false)
+			setLoading(false);
 		}
 	};
 
@@ -48,8 +49,11 @@ export default function AddTask({ onTaskCreated }: AddTaskFormProps) {
 					value={newTask}
 					onChange={(e) => setNewTask(e.target.value)}
 				/>
-				<Button className="p-5 text-lg bg-transparent border-white-200 inset-shadow-sm inset-shadow-white/90 rounded-xl hover:scale-[0.96] hover:opacity-50"
-				type="submit" disabled={loading}>
+				<Button
+					className="p-5 text-lg bg-transparent border-white-200 inset-shadow-sm inset-shadow-white/90 rounded-xl hover:scale-[0.96] hover:opacity-50"
+					type="submit"
+					disabled={loading}
+				>
 					Create Task
 				</Button>
 			</div>

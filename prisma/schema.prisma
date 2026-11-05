@@ -81,6 +81,7 @@ model Task {
   taskName        String
   description     String?
   userId          String
+  completed       Boolean?   @default(false)
   user            User       @relation(fields: [userId],references: [id], onDelete: Cascade)
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt

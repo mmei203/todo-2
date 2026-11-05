@@ -1,18 +1,48 @@
 "use client";
-import { Edit, Trash } from "lucide-react";
+import { Edit, Edit3Icon, Trash } from "lucide-react";
 import { Button } from "../ui/button";
+import EditTask from "./edit-task";
+import { useState } from "react";
 
 interface Task {
 	id: string;
 	taskName?: string;
+	completed: boolean;
 }
 
 interface TaskListProps {
 	tasks: Task[];
 	onDelete: (id: string) => void;
+	onChanged?: () => void;
 }
 
-export default function ShowTasks({ tasks, onDelete }: TaskListProps) {
+export default function ShowTasks({
+	tasks,
+	onDelete,
+	onChanged,
+}: TaskListProps) {
+	const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+	const [isDialogOpen, setDialogOpen] = useState(false);
+
+	const toggleCompleted = async (id: string, currentStatus: boolean) => {
+		try {
+			const res = await fetch(`api/task/${id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ completed: !currentStatus }),
+			});
+
+			const json = await res.json();
+			if (res.ok && json.success) {
+				if (typeof onChanged === "function") {
+					onChanged();
+				}
+			};
+		} catch (error) {
+			console.error("failed to update", error);
+		}
+	};
+
 	const handleDeleteClick = async (id: string) => {
 		try {
 			const res = await fetch(`/api/task/${id}`, { method: "DELETE" });
@@ -35,15 +65,21 @@ export default function ShowTasks({ tasks, onDelete }: TaskListProps) {
 					<div className="flex items-center text-lg gap-4">
 						<input
 							type="checkbox"
-							name=""
-							id=""
+							checked={task.completed}
+							onChange={() => toggleCompleted(task.id, task.completed)}
 							className="size-7 rounded-xl"
 						/>
 						<p>{task.taskName}</p>
 					</div>
 					<div className="space-x-4">
-						<Button size="icon-lg" className="bg-green-900">
-							<Edit size={40} />
+						<Button
+							className="bg-green-800 p-2 rounded-lg"
+							onClick={() => {
+								setSelectedTask(task);
+								setDialogOpen(true);
+							}}
+						>
+							<Edit3Icon size={18} />
 						</Button>
 						<Button
 							size="icon-lg"
@@ -55,6 +91,15 @@ export default function ShowTasks({ tasks, onDelete }: TaskListProps) {
 					</div>
 				</div>
 			))}
+			<EditTask
+				task={selectedTask}
+				isOpen={isDialogOpen}
+				onClose={() => {
+					setSelectedTask(null);
+					setDialogOpen(false);
+				}}
+				onTaskUpdated={onChanged}
+			/>
 		</div>
 	);
 }

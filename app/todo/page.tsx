@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 interface Task {
 	id: string;
 	taskName: string;
+	completed: boolean;
 }
 
 export default function ToDoList() {
@@ -50,7 +51,11 @@ export default function ToDoList() {
 			{/* Task Lists */}
 			<section className="border-t-5 border-neutral-700 py-5 space-y-5">
 				<h1 className="text-3xl font-bold">Tasks</h1>
-				<ShowTasks tasks={tasks} onDelete={handleTaskDeleted} />
+				<ShowTasks
+					tasks={tasks}
+					onDelete={handleTaskDeleted}
+					onChanged={fetchTask}
+				/>
 			</section>
 		</main>
 	);
