@@ -4,16 +4,14 @@ import { headers } from "next/headers";
 import Link from "next/link";
 
 export default async function Home() {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+	// const session = await auth.api.getSession({
+	// 	headers: await headers(),
+	// });
 
 	return (
 		<main>
 			{/* Hero Sect */}
 			<section className="text-white flex flex-col items-center justify-center min-h-[70vh] p-32">
-				{session?.user ? (
-					<>
 						<h1 className="text-6xl font-bold">To Do List</h1>
 						<p className="m-4 text-xl">
 							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -26,9 +24,7 @@ export default async function Home() {
 								</Button>
 							</Link>
 						</div>
-					</>
-				) : (
-					<>
+					{/* <>
 						<h1 className="text-6xl font-bold">To Do List</h1>
 						<p className="m-4 text-xl">
 							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -41,8 +37,7 @@ export default async function Home() {
 								</Button>
 							</Link>
 						</div>
-					</>
-				)}
+					</> */}
 			</section>
 		</main>
 	);
