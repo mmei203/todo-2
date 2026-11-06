@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { getSession } from "better-auth/api";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 
-export default function Home() {
-	const { data: session } = getSession();
+export default async function Home() {
+	const session = await auth.api.getSession({
+		headers: await headers()
+	})
+
 	return (
 		<main>
 			{/* Hero Sect */}
