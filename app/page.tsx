@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -5,8 +7,8 @@ import Link from "next/link";
 
 export default async function Home() {
 	const session = await auth.api.getSession({
-		headers: await headers()
-	})
+		headers: await headers(),
+	});
 
 	return (
 		<main>
@@ -47,4 +49,3 @@ export default async function Home() {
 		</main>
 	);
 }
-
